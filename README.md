@@ -1,0 +1,1 @@
+# compuerta_radial_2p_membrana_deformable
