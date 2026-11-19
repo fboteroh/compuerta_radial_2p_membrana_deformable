@@ -266,7 +266,8 @@ function chgTable(r){
   ln('Tiro por servomotor T',ra.T*G,rc.T*G,'kN')+ln('Momento de fricción aplicado en O (signo del modelo)',ra.s*ra.Mt*G,rc.s*rc.Mt*G,'kN·m')+ln('Tiro considerado en brazos',armT(ra),armT(rc),'kN');
  for(const [k,n] of [['u','Brazo superior'],['l','Brazo inferior']]){const A=armSec(ta,k,s0),C=armSec(tc,k,s0),sg=q=>q.yy.N*1000/98400+Math.abs(q.xx.M)*1e6/26e6+Math.abs(q.yy.M)*1e6/26e6;
   h+=`<tr><th colspan=6>${n}</th></tr>`+ln('Axial N (plano y-y)',A.yy.N,C.yy.N,'kN')+ln('Cortante Vy (plano y-y)',A.yy.V,C.yy.V,'kN')+ln('Momento flector My (plano y-y)',A.yy.M,C.yy.M,'kN·m')+
-   ln('Axial N (plano x-x)',A.xx.N,C.xx.N,'kN')+ln('Cortante Vx (plano x-x)',A.xx.V,C.xx.V,'kN')+ln('Momento flector Mx (plano x-x)',A.xx.M,C.xx.M,'kN·m')+ln('σ combinada (compresiones sumadas)',sg(A),sg(C),'MPa')}
+   ln('Axial N (plano x-x)',A.xx.N,C.xx.N,'kN')+ln('Cortante Vx (plano x-x)',A.xx.V,C.xx.V,'kN')+ln('Momento flector Mx (plano x-x)',A.xx.M,C.xx.M,'kN·m')+ln('σ combinada (compresiones sumadas)',sg(A),sg(C),'MPa')+
+   (e=>ln('ε flexión y-y (½ puente)',e(A),e(C),'µε'))(q=>{const t=strains(q);return t.eySup-t.eyInf})}
  $('tchg').innerHTML=h}
 function strutTable(r){const st=r.tp.ey.info[4],A=98400,W=26e6,Aw=2*30*820,N=st.f[0],V=Math.abs(st.f[1]),Md=Math.abs(st.f[2]),Mc=Math.abs(st.f[5]),Mm=Math.max(Md,Mc),
  sg=Math.abs(N)*1000/A+Mm*1e6/W,tau=V*1000/Aw,k=kmoVal(),q=(n,v,u,d=0,c='')=>`<tr><td>${n}</td><td class="${c}">${f(v,d)}</td><td>${u}</td></tr>`;
